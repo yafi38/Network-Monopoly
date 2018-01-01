@@ -1,0 +1,15 @@
+.button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-size: 24;
+    -fx-font-weight: bold;
+}
+
+.button:hover {
+    -fx-text-fill: #F6FF00;
+}
+
+.background {
+    -fx-background-image: url("Untitled.png");
+    -fx-background-size: 100% 100%;
+}
