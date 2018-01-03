@@ -1,9 +1,13 @@
 .button {
-    -fx-background-color: transparent;
-    -fx-text-fill: #FFFFFF;
-    -fx-font-size: 24;
-    -fx-font-weight: bold;
-    -fx-effect: dropshadow( three-pass-box , rgba(255,255,255,0.2) , 1, 0.0 , 0 , 1);
+    -fx-background-color:
+            linear-gradient(#f0ff35, #a9ff00),
+            radial-gradient(center 50% -40%, radius 200%, #b8ee36 45%, #80c800 50%);
+    -fx-background-radius: 6, 5;
+    -fx-background-insets: 0, 1;
+    -fx-effect: dropshadow( three-pass-box , rgba(0,0,0,0.4) , 5, 0.0 , 0 , 1 );
+    -fx-text-fill: #395306;
+    -fx-font-size: 36;
+    -fx-text-alignment: center;
 }
 
 .button:hover {
@@ -11,6 +15,6 @@
 }
 
 .background {
-    -fx-background-image: url("Untitled.png");
+    -fx-background-image: url("Background.png");
     -fx-background-size: 100% 100%;
 }

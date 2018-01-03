@@ -4,7 +4,7 @@
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="menuScene" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="35.0" styleClass="background" stylesheets="@../css/BasicTheme.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.mainmenu.MenuController">
+<VBox fx:id="menuScene" alignment="CENTER" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" spacing="25.0" styleClass="background" stylesheets="@../css/BasicTheme.css" xmlns="http://javafx.com/javafx/9.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.mainmenu.MenuController">
    <children>
       <Button mnemonicParsing="false" text="Create Game" />
       <Button layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Settings" />
@@ -14,7 +14,4 @@
    <opaqueInsets>
       <Insets />
    </opaqueInsets>
-   <padding>
-      <Insets left="50.0" top="50.0" />
-   </padding>
 </VBox>
