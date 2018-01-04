@@ -14,7 +14,24 @@
     -fx-text-fill: #F6FF00;
 }
 
-.background {
+.background-image {
     -fx-background-image: url("Background.png");
     -fx-background-size: 100% 100%;
 }
+
+.background-color {
+    -fx-background-color: #f9e20e;
+}
+
+.medium-button {
+    -fx-font-size: 20;
+}
+
+.small-button {
+    -fx-font-size: 16;
+}
+
+.label {
+    -fx-font-size: 16;
+}
+
