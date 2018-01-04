@@ -1,5 +1,6 @@
 package main;
 
+import gui.settings.Settings;
 import javafx.application.Application;
 import gui.mainmenu.Menu;
 import gui.creategame.CreateGame;
@@ -8,7 +9,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
     public static Stage window;
-    public static Scene menuScene, createGameScene;
+    public static Scene menuScene, createGameScene, settingsScene;
 
     public static void main(String[] args) {
         launch(args);
@@ -26,6 +27,7 @@ public class Main extends Application {
     private void loadAll() throws Exception {
         menuScene = new Menu().getMenuScene();
         createGameScene = new CreateGame().getCreateGameScene();
+        settingsScene = new Settings().getSettingsScene();
     }
 
 }

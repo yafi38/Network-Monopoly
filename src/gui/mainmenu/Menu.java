@@ -9,7 +9,7 @@ public class Menu {
 
     public Menu() throws Exception {
         Parent root = FXMLLoader.load(getClass().getResource("menufx.fxml"));
-        menuScene = new Scene(root);
+        this.menuScene = new Scene(root);
     }
 
     public Scene getMenuScene() {
