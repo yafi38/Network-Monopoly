@@ -2,7 +2,7 @@ package gui.settings;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
-import main.Main;
+import client.Client;
 
 public class SettingsController {
     @FXML
@@ -26,7 +26,7 @@ public class SettingsController {
 
     @FXML
     void cancel() {
-        Main.window.setScene(Main.menuScene);
-        Main.window.setFullScreen(true);
+        Client.window.setScene(Client.menuScene);
+        //Client.window.setFullScreen(true);
     }
 }
