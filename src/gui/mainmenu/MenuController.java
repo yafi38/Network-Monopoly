@@ -9,7 +9,6 @@ public class MenuController {
     }
 
     public void showSettings() {
-        //new SettingsController().setChoices();
         Main.window.setScene(Main.settingsScene);
         //Main.window.setFullScreen(true);
     }

@@ -8,18 +8,22 @@ import java.io.ObjectInputStream;
 public class ClientRead implements Runnable {
     private Client client;
     ObjectInputStream ois;
+    private Thread thread;
 
     public ClientRead(Client client) {
         this.client = client;
-        try {
-            this.ois = new ObjectInputStream(client.clientSocket.getInputStream());
-        } catch (IOException e) {
-            System.out.println("Creating Client Input Stream: " + e);
-        }
+        this.thread = new Thread(this);
+        thread.start();
     }
 
+    @Override
     public void run() {
         try {
+            try {
+                this.ois = new ObjectInputStream(client.clientSocket.getInputStream());
+            } catch (IOException e) {
+                System.out.println("Creating Client Input Stream: " + e);
+            }
             while (true) {
                 Object o;
                 o = ois.readObject();
@@ -54,20 +58,28 @@ public class ClientRead implements Runnable {
         return c;
     }
 
+    private String readString() {
+        String s = null;
+        try {
+            Object o;
+            o = ois.readObject();
+            if (o != null && o instanceof String) {
+                s = (String) o;
+            }
+        } catch (Exception e) {
+            System.out.println("While Reading String: " + e);
+        }
+        return s;
+    }
+
     private void addOnlineUser() {
-        Client c = readClient();
-        if(c != null)
-            Main.onlineUsers.add(c);
+        String s = readString();
+        if(s != null && !s.equals(client.name))
+            Main.onlineUsers.add(s);
     }
 
     private void removeOnlineUser() {
-        Client c = readClient();
-        if(c != null) {
-            int totalUsers = Main.onlineUsers.size();
-            for(int i=0; i<totalUsers; i++) {
-                if(c.equals(Main.onlineUsers.get(i)))
-                    Main.onlineUsers.remove(i);
-            }
-        }
+        String s = readString();
+        Main.onlineUsers.remove(s);
     }
 }

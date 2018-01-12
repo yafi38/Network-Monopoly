@@ -10,13 +10,14 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 
 public class Main extends Application {
     public static Stage window;
     public static Scene menuScene, createGameScene, settingsScene, loginScene;
     public static int resX, resY;
-    public static String userName;
-    public static ArrayList<Client> onlineUsers;
+    public static HashSet<String> onlineUsers;
     public static Client client;
 
     public static void main(String[] args) {

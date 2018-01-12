@@ -6,6 +6,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 
 public class LoginController {
     @FXML
@@ -14,8 +16,8 @@ public class LoginController {
     public void loginButtonPressed() {
         Main.window.setScene(Main.menuScene);
         //Main.window.setFullScreen(true);
-        Main.userName = userNameField.getText();
-        Main.client = new Client(Main.userName);
-        Main.onlineUsers = new ArrayList<>();
+        String userName = userNameField.getText();
+        Main.client = new Client(userName);
+        Main.onlineUsers = new HashSet<>();
     }
 }
