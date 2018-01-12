@@ -16,7 +16,7 @@
          <children>
             <BorderPane AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <center>
-                  <ListView prefHeight="398.0" prefWidth="180.0" />
+                  <ListView fx:id="onlinePlayers" prefHeight="398.0" prefWidth="180.0" />
                </center>
                <bottom>
                   <HBox spacing="15.0" BorderPane.alignment="CENTER">
@@ -35,7 +35,7 @@
          <children>
             <BorderPane prefHeight="398.0" prefWidth="412.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <center>
-                  <ListView prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
+                  <ListView fx:id="inParty" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
                </center>
                <bottom>
                   <HBox spacing="20.0" BorderPane.alignment="CENTER">

@@ -1,59 +1,32 @@
 package client;
 
-import gui.settings.Settings;
-import gui.mainmenu.Menu;
-import gui.creategame.CreateGame;
-import gui.login.Login;
-import server.Server;
-import util.*;
-
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.Serializable;
+import java.net.Socket;
 
-public class Client extends Application implements Serializable{
-    public static Stage window;
-    public static Scene menuScene, createGameScene, settingsScene, loginScene;
-    public static String userName;
-    public static int resX, resY;
-    public static OnlinePlayersThread onlinePlayersThread;
+public class Client implements Serializable{
+    String name;
+    Socket clientSocket;
 
-    public static void createClient() {
+    public Client(String name) {
+        this.name = name;
         try {
-            NetworkUtil nc = new NetworkUtil("127.0.0.1", 38383);
-            new ReadThread(nc);
-            new ClientWriteThread(nc, userName);
-            onlinePlayersThread = new OnlinePlayersThread(nc, userName);
-        } catch (Exception e) {
-            e.printStackTrace();
+            this.clientSocket = new Socket("127.0.0.1", 38383);
+            new ClientRead(this);
+        } catch (IOException e) {
+            System.out.println("Client Constructor: " + e);
         }
     }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
-
     @Override
-    public void start(Stage primaryStage) throws Exception {
-        window = primaryStage;
-        loadAll();
-        resX = 1600;
-        resY = 900;
-        window.setScene(loginScene);
-        //window.setResizable(true);
-        //window.setFullScreen(true);
-        window.setHeight(resY);
-        window.setWidth(resX);
-        window.show();
-    }
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
 
-    private void loadAll() throws Exception {
-        menuScene = new Menu().getMenuScene();
-        createGameScene = new CreateGame().getCreateGameScene();
-        settingsScene = new Settings().getSettingsScene();
-        loginScene = new Login().getLoginScene();
+        Client client = (Client) o;
+
+        return name != null ? name.equals(client.name) : client.name == null;
     }
 
 }

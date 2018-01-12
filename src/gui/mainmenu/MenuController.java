@@ -1,20 +1,20 @@
 package gui.mainmenu;
 
-import client.Client;
+import main.Main;
 
 public class MenuController {
     public void showCreateGame() {
-        Client.window.setScene(Client.createGameScene);
-        //Client.window.setFullScreen(true);
+        Main.window.setScene(Main.createGameScene);
+        //Main.window.setFullScreen(true);
     }
 
     public void showSettings() {
         //new SettingsController().setChoices();
-        Client.window.setScene(Client.settingsScene);
-        //Client.window.setFullScreen(true);
+        Main.window.setScene(Main.settingsScene);
+        //Main.window.setFullScreen(true);
     }
 
     public void exit() {
-        Client.window.close();
+        Main.window.close();
     }
 }

@@ -1,6 +1,6 @@
 package gui.creategame;
 
-import client.Client;
+import main.Main;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 
@@ -22,8 +22,8 @@ public class CreateGameController {
 
 
     public void cancel() {
-        Client.window.setScene(Client.menuScene);
-        //Client.window.setFullScreen(true);
+        Main.window.setScene(Main.menuScene);
+        //Main.window.setFullScreen(true);
     }
 
 
