@@ -1,9 +1,9 @@
 package client;
 
-import main.Main;
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.util.HashMap;
+import java.util.HashSet;
 
 public class ClientRead implements Runnable {
     private Client client;
@@ -36,6 +36,8 @@ public class ClientRead implements Runnable {
                         break;
                     case 2:
                         removeOnlineUser();
+                    case 3:
+                        getAllOnlineUsers();
 
                 }
             }
@@ -74,12 +76,34 @@ public class ClientRead implements Runnable {
 
     private void addOnlineUser() {
         String s = readString();
-        if(s != null && !s.equals(client.name))
+        if(!s.equals(client.name)) {
             Main.onlineUsers.add(s);
+            //System.out.println(s);
+        }
     }
 
     private void removeOnlineUser() {
         String s = readString();
         Main.onlineUsers.remove(s);
+    }
+
+    private void getAllOnlineUsers() {
+        try {
+            while(true) {
+                String s = readString();
+                if(s.equals("3"))
+                    break;
+                else
+                    Main.onlineUsers.add(s);
+            }
+        } catch (Exception e) {
+            System.out.println("In getAllOnlineUsers: " + e);
+        }
+
+        /*System.out.println("Getting all online users");
+        for(String h : Main.onlineUsers) {
+            System.out.println(h);
+        }
+        System.out.println("End Getting");*/
     }
 }

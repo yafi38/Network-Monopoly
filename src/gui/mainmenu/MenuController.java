@@ -1,6 +1,6 @@
 package gui.mainmenu;
 
-import main.Main;
+import client.Main;
 
 public class MenuController {
     public void showCreateGame() {

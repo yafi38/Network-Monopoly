@@ -2,7 +2,7 @@ package gui.settings;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
-import main.Main;
+import client.Main;
 
 public class SettingsController {
     @FXML

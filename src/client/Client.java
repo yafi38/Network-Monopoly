@@ -2,6 +2,7 @@ package client;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.Socket;
 
@@ -13,6 +14,8 @@ public class Client implements Serializable{
         this.name = name;
         try {
             this.clientSocket = new Socket("127.0.0.1", 38383);
+            ObjectOutputStream oos = new ObjectOutputStream(clientSocket.getOutputStream());
+            oos.writeObject(name);
             new ClientRead(this);
         } catch (IOException e) {
             System.out.println("Client Constructor: " + e);

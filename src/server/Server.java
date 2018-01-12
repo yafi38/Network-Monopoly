@@ -1,26 +1,21 @@
 package server;
 
-import client.Client;
-
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Server {
-    private HashMap<String, Socket> onlineUsers;
+    private HashMap<String, Info> onlineUsers;
     private ServerSocket serverSocket;
 
-    Server() {
+    private Server() {
         onlineUsers = new HashMap<>();
         try {
             serverSocket = new ServerSocket(38383);
-            new ServerWrite(onlineUsers);
             while(true) {
                 Socket clientSocket = serverSocket.accept();
-                //addNewClient(clientSocket);
+                addNewClient(clientSocket);
             }
         } catch (Exception e) {
             System.out.println("In Server Constructor:" + e);
@@ -30,19 +25,25 @@ public class Server {
     private void addNewClient(Socket clientSocket) {
         try {
             String name;
-            ObjectInputStream ois = new ObjectInputStream(clientSocket.getInputStream());
-            Object o = ois.readObject();
-            /*if(o != null && o instanceof String) {
-                name = (String) o;
-                onlineUsers.put(name, clientSocket);
+            Info info = new Info(clientSocket);
+            Object o = info.ois.readObject();
+            info.oos.writeObject("3");
 
-                for (Map.Entry<String, Socket> user : onlineUsers.entrySet()) {
-                    Socket socket = user.getValue();
-                    ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
-                    oos.writeObject("1");
-                    oos.writeObject(name);
+            if(o != null && o instanceof String) {
+                name = (String) o;
+                for (Map.Entry<String, Info> user : onlineUsers.entrySet()) {
+                    Info tempInfo = user.getValue();
+                    String userName = user.getKey();
+                    tempInfo.oos.writeObject("1");
+                    tempInfo.oos.writeObject(name);
+                    //System.out.println(name);
+
+                    info.oos.writeObject(userName);
                 }
-            }*/
+                onlineUsers.put(name, info);
+            }
+
+            info.oos.writeObject("3");
 
         } catch (Exception e) {
             System.out.println("In addNewClient: " + e);

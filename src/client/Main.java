@@ -1,6 +1,5 @@
-package main;
+package client;
 
-import client.Client;
 import gui.login.Login;
 import gui.settings.Settings;
 import javafx.application.Application;
@@ -8,9 +7,6 @@ import gui.mainmenu.Menu;
 import gui.creategame.CreateGame;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 
 public class Main extends Application {

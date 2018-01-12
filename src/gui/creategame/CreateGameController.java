@@ -1,6 +1,6 @@
 package gui.creategame;
 
-import main.Main;
+import client.Main;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 

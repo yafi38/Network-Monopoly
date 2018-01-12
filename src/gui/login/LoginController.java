@@ -1,12 +1,10 @@
 package gui.login;
 
 import client.Client;
-import main.Main;
+import client.Main;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.HashSet;
 
 public class LoginController {
