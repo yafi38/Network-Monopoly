@@ -1,5 +1,7 @@
 package client;
 
+import gui.creategame.CreateGameController;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.util.HashMap;
@@ -85,6 +87,7 @@ public class ClientRead implements Runnable {
     private void removeOnlineUser() {
         String s = readString();
         Main.onlineUsers.remove(s);
+        Main.onlinePlayers.getItems().remove(s);
     }
 
     private void getAllOnlineUsers() {
@@ -93,8 +96,10 @@ public class ClientRead implements Runnable {
                 String s = readString();
                 if(s.equals("3"))
                     break;
-                else
+                else {
                     Main.onlineUsers.add(s);
+                    Main.onlinePlayers.getItems().add(s);
+                }
             }
         } catch (Exception e) {
             System.out.println("In getAllOnlineUsers: " + e);

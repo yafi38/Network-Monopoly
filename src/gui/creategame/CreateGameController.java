@@ -4,6 +4,8 @@ import client.Main;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 
+import java.util.HashSet;
+
 public class CreateGameController {
 
     @FXML
@@ -14,17 +16,18 @@ public class CreateGameController {
 
     @FXML
     public void initialize() {
-        onlinePlayers.getItems().addAll();
+
     }
 
-
-
-
-
+    @FXML
     public void cancel() {
         Main.window.setScene(Main.menuScene);
         //Main.window.setFullScreen(true);
     }
 
+    @FXML
+    public void refresh() {
+        onlinePlayers.getItems().addAll(Main.onlineUsers);
+    }
 
 }

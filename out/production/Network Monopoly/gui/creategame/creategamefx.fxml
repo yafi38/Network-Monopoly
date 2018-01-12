@@ -21,6 +21,7 @@
                <bottom>
                   <HBox spacing="15.0" BorderPane.alignment="CENTER">
                      <children>
+                        <Button mnemonicParsing="false" onAction="#refresh" styleClass="small-button" text="Refresh" />
                         <Region HBox.hgrow="ALWAYS" />
                         <Button mnemonicParsing="false" styleClass="small-button" text="Invite" />
                      </children>

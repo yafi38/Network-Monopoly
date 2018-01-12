@@ -3,6 +3,7 @@ package gui.login;
 import client.Client;
 import client.Main;
 import javafx.fxml.FXML;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 
 import java.util.HashSet;
@@ -17,5 +18,6 @@ public class LoginController {
         String userName = userNameField.getText();
         Main.client = new Client(userName);
         Main.onlineUsers = new HashSet<>();
+        Main.onlinePlayers = new ListView<>();
     }
 }

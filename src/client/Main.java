@@ -6,6 +6,7 @@ import javafx.application.Application;
 import gui.mainmenu.Menu;
 import gui.creategame.CreateGame;
 import javafx.scene.Scene;
+import javafx.scene.control.ListView;
 import javafx.stage.Stage;
 import java.util.HashSet;
 
@@ -15,6 +16,7 @@ public class Main extends Application {
     public static int resX, resY;
     public static HashSet<String> onlineUsers;
     public static Client client;
+    public static ListView<String> onlinePlayers;
 
     public static void main(String[] args) {
         launch(args);
@@ -34,10 +36,10 @@ public class Main extends Application {
     }
 
     private void loadAll() throws Exception {
+        loginScene = new Login().getLoginScene();
         menuScene = new Menu().getMenuScene();
         createGameScene = new CreateGame().getCreateGameScene();
         settingsScene = new Settings().getSettingsScene();
-        loginScene = new Login().getLoginScene();
     }
 
 }
