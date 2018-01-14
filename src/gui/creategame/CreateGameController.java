@@ -1,10 +1,12 @@
 package gui.creategame;
 
 import client.Main;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
 
 import java.util.HashSet;
+import java.util.Set;
 
 public class CreateGameController {
 
@@ -16,7 +18,7 @@ public class CreateGameController {
 
     @FXML
     public void initialize() {
-
+        update();
     }
 
     @FXML
@@ -25,9 +27,31 @@ public class CreateGameController {
         //Main.window.setFullScreen(true);
     }
 
-    @FXML
-    public void refresh() {
-        onlinePlayers.getItems().addAll(Main.onlineUsers);
+    private void update() {
+        Runnable task = () -> {
+            System.out.println("Started");
+            while(true) {
+                if (Main.isMainLoaded()) {
+                    Platform.runLater(() -> onlinePlayers.getItems().addAll(Main.onlineUsers));
+                    System.out.println("Main is loaded");
+                    break;
+                }
+            }
+
+            while(true) {
+                if (Main.isNewOnline()) {
+                    System.out.println("Loading People");
+                    if (Main.client.lastOnline != null) {
+                        Platform.runLater(() -> onlinePlayers.getItems().add(Main.client.lastOnline));
+                    }
+                    Main.newOnline = false;
+                }
+            }
+        };
+
+        Thread updateThread = new Thread(task);
+        updateThread.setDaemon(true);
+        updateThread.start();
     }
 
 }

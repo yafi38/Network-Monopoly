@@ -17,6 +17,8 @@ public class Main extends Application {
     public static HashSet<String> onlineUsers;
     public static Client client;
     public static ListView<String> onlinePlayers;
+    public static boolean newOnline = false;
+    public static boolean isLoaded = false;
 
     public static void main(String[] args) {
         launch(args);
@@ -41,5 +43,19 @@ public class Main extends Application {
         createGameScene = new CreateGame().getCreateGameScene();
         settingsScene = new Settings().getSettingsScene();
     }
+
+    synchronized public static boolean isMainLoaded() {
+        if(isLoaded) {
+            //System.out.println("Yes, loaded");
+            return true;
+        }
+        //System.out.println("Nope");
+        return false;
+    }
+
+    synchronized public static boolean isNewOnline() {
+        return newOnline;
+    }
+
 
 }

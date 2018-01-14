@@ -9,6 +9,7 @@ import java.net.Socket;
 public class Client implements Serializable{
     String name;
     Socket clientSocket;
+    public String lastOnline;
 
     public Client(String name) {
         this.name = name;

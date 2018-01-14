@@ -19,5 +19,6 @@ public class LoginController {
         Main.client = new Client(userName);
         Main.onlineUsers = new HashSet<>();
         Main.onlinePlayers = new ListView<>();
+        Main.client.lastOnline = null;
     }
 }

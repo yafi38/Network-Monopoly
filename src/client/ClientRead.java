@@ -81,6 +81,8 @@ public class ClientRead implements Runnable {
         if(!s.equals(client.name)) {
             Main.onlineUsers.add(s);
             //System.out.println(s);
+            Main.newOnline = true;
+            Main.client.lastOnline = s;
         }
     }
 
@@ -105,6 +107,7 @@ public class ClientRead implements Runnable {
             System.out.println("In getAllOnlineUsers: " + e);
         }
 
+        Main.isLoaded = true;
         /*System.out.println("Getting all online users");
         for(String h : Main.onlineUsers) {
             System.out.println(h);
