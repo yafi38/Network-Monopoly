@@ -19,6 +19,12 @@
     -fx-background-size: 100% 100%;
 }
 
+.green-background-image {
+    -fx-background-image: url("GreenBackground.jpg");
+    -fx-background-size: 100% 100%;
+}
+
+
 .background-color {
     -fx-background-color: #f9e20e;
 }
@@ -33,5 +39,10 @@
 
 .label {
     -fx-font-size: 16;
+}
+
+.welcome-font {
+    -fx-font-size: 36;
+    -fx-font-weight: bold;
 }
 
