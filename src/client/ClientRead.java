@@ -1,11 +1,7 @@
 package client;
 
-import gui.creategame.CreateGameController;
-
 import java.io.IOException;
 import java.io.ObjectInputStream;
-import java.util.HashMap;
-import java.util.HashSet;
 
 public class ClientRead implements Runnable {
     private Client client;
@@ -21,11 +17,7 @@ public class ClientRead implements Runnable {
     @Override
     public void run() {
         try {
-            try {
-                this.ois = new ObjectInputStream(client.clientSocket.getInputStream());
-            } catch (IOException e) {
-                System.out.println("Creating Client Input Stream: " + e);
-            }
+            this.ois = new ObjectInputStream(client.clientSocket.getInputStream());
             while (true) {
                 Object o;
                 o = ois.readObject();
@@ -40,6 +32,9 @@ public class ClientRead implements Runnable {
                         removeOnlineUser();
                     case 3:
                         getAllOnlineUsers();
+
+                    case 4:
+                        getInvite();
 
                 }
             }
@@ -113,5 +108,9 @@ public class ClientRead implements Runnable {
             System.out.println(h);
         }
         System.out.println("End Getting");*/
+    }
+
+    private void getInvite() {
+        String name;
     }
 }
