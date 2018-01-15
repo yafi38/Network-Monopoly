@@ -31,6 +31,7 @@ public class Server {
 
             if(o != null && o instanceof String) {
                 name = (String) o;
+                new ServerRead(name, info, onlineUsers);
                 for (Map.Entry<String, Info> user : onlineUsers.entrySet()) {
                     Info tempInfo = user.getValue();
                     String userName = user.getKey();

@@ -22,7 +22,7 @@
                   <HBox spacing="15.0" BorderPane.alignment="CENTER">
                      <children>
                         <Region HBox.hgrow="ALWAYS" />
-                        <Button mnemonicParsing="false" styleClass="small-button" text="Invite" />
+                        <Button mnemonicParsing="false" onAction="#invite" styleClass="small-button" text="Invite" />
                      </children>
                      <padding>
                         <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />

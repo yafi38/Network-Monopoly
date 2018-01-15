@@ -1,6 +1,8 @@
 package client;
 
-import java.io.IOException;
+import gui.invite.InviteAlertBox;
+import javafx.application.Platform;
+
 import java.io.ObjectInputStream;
 
 public class ClientRead implements Runnable {
@@ -30,11 +32,16 @@ public class ClientRead implements Runnable {
                         break;
                     case 2:
                         removeOnlineUser();
+                        break;
                     case 3:
                         getAllOnlineUsers();
-
+                        break;
                     case 4:
                         getInvite();
+                        break;
+                    case 5:
+                        inviteGotAccepted();
+                        break;
 
                 }
             }
@@ -112,5 +119,12 @@ public class ClientRead implements Runnable {
 
     private void getInvite() {
         String name;
+        name = readString();
+        Platform.runLater(() ->new InviteAlertBox(name));
+    }
+
+    private void inviteGotAccepted() {
+        String name = readString();
+        Main.client.partyMembers[Main.client.totalPartyMembers++] = name;
     }
 }

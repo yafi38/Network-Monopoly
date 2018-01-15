@@ -1,12 +1,8 @@
 package gui.creategame;
 
 import client.Main;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
-
-import java.util.HashSet;
-import java.util.Set;
 
 public class CreateGameController {
 
@@ -22,6 +18,14 @@ public class CreateGameController {
     }
 
     @FXML
+    public void invite() {
+        String name = onlinePlayers.getSelectionModel().getSelectedItem();
+        //System.out.println("Inviting " + name);
+        Main.client.sendInvite(name);
+    }
+
+
+    @FXML
     public void cancel() {
         Main.window.setScene(Main.menuScene);
         //Main.window.setFullScreen(true);
@@ -32,7 +36,7 @@ public class CreateGameController {
             System.out.println("Started");
             while(true) {
                 if (Main.isMainLoaded()) {
-                    Platform.runLater(() -> onlinePlayers.getItems().addAll(Main.onlineUsers));
+                    onlinePlayers.getItems().addAll(Main.onlineUsers);
                     System.out.println("Main is loaded");
                     break;
                 }
@@ -42,7 +46,7 @@ public class CreateGameController {
                 if (Main.isNewOnline()) {
                     System.out.println("Loading People");
                     if (Main.client.lastOnline != null) {
-                        Platform.runLater(() -> onlinePlayers.getItems().add(Main.client.lastOnline));
+                        onlinePlayers.getItems().add(Main.client.lastOnline);
                     }
                     Main.newOnline = false;
                 }

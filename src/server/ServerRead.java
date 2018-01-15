@@ -26,6 +26,10 @@ public class ServerRead implements Runnable {
                 switch(command) {
                     case 1:
                         sendInvite();
+                        break;
+                    case 2:
+                        inviteAccepted();
+                        break;
                 }
             }
         } catch(Exception e)  {
@@ -47,7 +51,7 @@ public class ServerRead implements Runnable {
         return s;
     }
 
-    void sendInvite() {
+    private void sendInvite() {
         String inviteName = readString();
         Info inviteInfo = onlineUsers.get(inviteName);
         try {
@@ -57,6 +61,19 @@ public class ServerRead implements Runnable {
             }
         } catch(Exception e) {
             System.out.println("While Sending Invite(Server): " + e);
+        }
+    }
+
+    private void inviteAccepted() {
+        String inviteName = readString();
+        Info inviteInfo = onlineUsers.get(inviteName);
+        try {
+            if(inviteInfo != null) {
+                inviteInfo.oos.writeObject("5");
+                inviteInfo.oos.writeObject(userName);
+            }
+        } catch (Exception e) {
+            System.out.println("In inviteAccepted " + e);
         }
     }
 }
