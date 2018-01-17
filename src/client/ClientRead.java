@@ -3,12 +3,16 @@ package client;
 import gui.invite.InviteAlertBox;
 import javafx.application.Platform;
 
+import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 
 public class ClientRead implements Runnable {
     private Client client;
-    ObjectInputStream ois;
+    private ObjectInputStream ois;
+    private ObjectOutputStream oos;
     private Thread thread;
+
 
     public ClientRead(Client client) {
         this.client = client;
@@ -20,6 +24,7 @@ public class ClientRead implements Runnable {
     public void run() {
         try {
             this.ois = new ObjectInputStream(client.clientSocket.getInputStream());
+            this.oos = new ObjectOutputStream(client.clientSocket.getOutputStream());
             while (true) {
                 Object o;
                 o = ois.readObject();
@@ -41,6 +46,9 @@ public class ClientRead implements Runnable {
                         break;
                     case 5:
                         inviteGotAccepted();
+                        break;
+                    case 6:
+                        getPartyList();
                         break;
 
                 }
@@ -123,8 +131,17 @@ public class ClientRead implements Runnable {
         Platform.runLater(() ->new InviteAlertBox(name));
     }
 
-    private void inviteGotAccepted() {
+    private void inviteGotAccepted() {          //Someone accepted my invite
         String name = readString();
         Main.client.partyMembers[Main.client.totalPartyMembers++] = name;
+        try {
+            oos.writeObject(Main.client.partyMembers);
+        } catch (IOException e) {
+            System.out.println("In inviteGotAccepted: " + e);
+        }
+    }
+
+    private void getPartyList() {
+
     }
 }

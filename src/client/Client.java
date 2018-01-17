@@ -38,7 +38,7 @@ public class Client implements Serializable{
         }
     }
 
-    public void inviteAccepted(String name) {
+    public void inviteAccepted(String name) {           //I accepted someone's invite
         try {
             oos.writeObject("2");
             oos.writeObject(name);

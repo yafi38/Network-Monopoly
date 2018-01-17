@@ -64,13 +64,16 @@ public class ServerRead implements Runnable {
         }
     }
 
-    private void inviteAccepted() {
-        String inviteName = readString();
+    private void inviteAccepted() {         //This thread's client accepted the invite
+        String inviteName = readString();   //The one who invited this client
         Info inviteInfo = onlineUsers.get(inviteName);
         try {
             if(inviteInfo != null) {
                 inviteInfo.oos.writeObject("5");
                 inviteInfo.oos.writeObject(userName);
+                String[] partyMembers = (String[]) inviteInfo.ois.readObject();
+                info.oos.writeObject("6");
+                info.oos.writeObject(partyMembers);
             }
         } catch (Exception e) {
             System.out.println("In inviteAccepted " + e);

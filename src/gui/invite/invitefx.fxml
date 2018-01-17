@@ -10,7 +10,7 @@
       <Label fx:id="inviteMessage" text="Label" />
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="35.0">
          <children>
-            <Button mnemonicParsing="false" styleClass="medium-button" text="Accept" />
+            <Button mnemonicParsing="false" onAction="#accept" styleClass="medium-button" text="Accept" />
             <Button mnemonicParsing="false" onAction="#decline" styleClass="medium-button" text="Decline" />
          </children>
       </HBox>
