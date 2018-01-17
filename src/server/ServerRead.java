@@ -42,9 +42,7 @@ public class ServerRead implements Runnable {
         try {
             Object o;
             o = info.ois.readObject();
-            if (o != null && o instanceof String) {
-                s = (String) o;
-            }
+            s = (String) o;
         } catch (Exception e) {
             System.out.println("While Reading String: " + e);
         }
@@ -58,6 +56,7 @@ public class ServerRead implements Runnable {
             if (inviteInfo != null) {
                 inviteInfo.oos.writeObject("4");
                 inviteInfo.oos.writeObject(userName);
+                System.out.println("Server Sent Invite");
             }
         } catch(Exception e) {
             System.out.println("While Sending Invite(Server): " + e);

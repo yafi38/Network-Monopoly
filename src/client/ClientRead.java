@@ -10,7 +10,7 @@ import java.io.ObjectOutputStream;
 public class ClientRead implements Runnable {
     private Client client;
     private ObjectInputStream ois;
-    private ObjectOutputStream oos;
+    //private ObjectOutputStream oos;
     private Thread thread;
 
 
@@ -24,7 +24,7 @@ public class ClientRead implements Runnable {
     public void run() {
         try {
             this.ois = new ObjectInputStream(client.clientSocket.getInputStream());
-            this.oos = new ObjectOutputStream(client.clientSocket.getOutputStream());
+            //this.oos = new ObjectOutputStream(client.clientSocket.getOutputStream());
             while (true) {
                 Object o;
                 o = ois.readObject();
@@ -128,6 +128,7 @@ public class ClientRead implements Runnable {
     private void getInvite() {
         String name;
         name = readString();
+        System.out.println("Got invite");
         Platform.runLater(() ->new InviteAlertBox(name));
     }
 
@@ -135,7 +136,7 @@ public class ClientRead implements Runnable {
         String name = readString();
         Main.client.partyMembers[Main.client.totalPartyMembers++] = name;
         try {
-            oos.writeObject(Main.client.partyMembers);
+            Main.client.oos.writeObject(Main.client.partyMembers);
         } catch (IOException e) {
             System.out.println("In inviteGotAccepted: " + e);
         }
