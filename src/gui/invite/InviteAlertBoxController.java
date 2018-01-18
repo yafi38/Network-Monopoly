@@ -15,8 +15,8 @@ public class InviteAlertBoxController {
 
     @FXML
     void accept() {
-        Main.client.inviteAccepted(InviteAlertBox.invitedBy);
         InviteAlertBox.close();
+        Main.client.inviteAccepted(InviteAlertBox.invitedBy);
     }
 
     @FXML

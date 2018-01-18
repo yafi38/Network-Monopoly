@@ -6,10 +6,11 @@ import javafx.application.Platform;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.util.ArrayList;
 
 public class ClientRead implements Runnable {
     private Client client;
-    private ObjectInputStream ois;
+    //private ObjectInputStream ois;
     //private ObjectOutputStream oos;
     private Thread thread;
 
@@ -23,11 +24,10 @@ public class ClientRead implements Runnable {
     @Override
     public void run() {
         try {
-            this.ois = new ObjectInputStream(client.clientSocket.getInputStream());
             //this.oos = new ObjectOutputStream(client.clientSocket.getOutputStream());
             while (true) {
                 Object o;
-                o = ois.readObject();
+                o = Main.client.ois.readObject();
                 String str = (String) o;
                 int command = Integer.parseInt(str);
 
@@ -62,7 +62,7 @@ public class ClientRead implements Runnable {
         Client c = null;
         try {
             Object o;
-            o = ois.readObject();
+            o = Main.client.ois.readObject();
             if (o != null && o instanceof Client) {
                 c = (Client) o;
             }
@@ -76,7 +76,7 @@ public class ClientRead implements Runnable {
         String s = null;
         try {
             Object o;
-            o = ois.readObject();
+            o = Main.client.ois.readObject();
             if (o != null && o instanceof String) {
                 s = (String) o;
             }
@@ -134,7 +134,7 @@ public class ClientRead implements Runnable {
 
     private void inviteGotAccepted() {          //Someone accepted my invite
         String name = readString();
-        Main.client.partyMembers[Main.client.totalPartyMembers++] = name;
+        Main.client.partyMembers.add(name);
         try {
             Main.client.oos.writeObject(Main.client.partyMembers);
         } catch (IOException e) {
@@ -143,6 +143,10 @@ public class ClientRead implements Runnable {
     }
 
     private void getPartyList() {
-
+        try {
+            Main.client.partyMembers = (ArrayList<String>) Main.client.ois.readObject();
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("While getting party list: " + e);
+        }
     }
 }

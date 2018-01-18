@@ -1,9 +1,11 @@
 package client;
 
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 import java.net.Socket;
+import java.util.ArrayList;
 
 public class Client implements Serializable{
     String name;
@@ -11,17 +13,19 @@ public class Client implements Serializable{
     public String lastOnline;
     public ClientRead cr;
     ObjectOutputStream oos;
-    public String[] partyMembers;
+    ObjectInputStream ois;
+    public ArrayList<String> partyMembers;
     public int totalPartyMembers;
 
     public Client(String name) {
         this.name = name;
         totalPartyMembers = 1;
-        partyMembers = new String[4];
-        partyMembers[0] = name;
+        partyMembers = new ArrayList<>();
+        partyMembers.add(name);
         try {
             this.clientSocket = new Socket("127.0.0.1", 38383);
             oos = new ObjectOutputStream(clientSocket.getOutputStream());
+            ois = new ObjectInputStream(clientSocket.getInputStream());
             oos.writeObject(name);
             cr = new ClientRead(this);
         } catch (IOException e) {
@@ -41,7 +45,7 @@ public class Client implements Serializable{
     public void inviteAccepted(String name) {           //I accepted someone's invite
         try {
             oos.writeObject("2");
-            oos.writeObject(name);
+            oos.writeObject(name);                      //Who's invite I accepted
         } catch (Exception e) {
             System.out.println("In inviteAccepted: " + e);
         }

@@ -1,5 +1,6 @@
 package server;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class ServerRead implements Runnable {
@@ -65,12 +66,12 @@ public class ServerRead implements Runnable {
 
     private void inviteAccepted() {         //This thread's client accepted the invite
         String inviteName = readString();   //The one who invited this client
-        Info inviteInfo = onlineUsers.get(inviteName);
+        Info invitee = onlineUsers.get(inviteName);
         try {
-            if(inviteInfo != null) {
-                inviteInfo.oos.writeObject("5");
-                inviteInfo.oos.writeObject(userName);
-                String[] partyMembers = (String[]) inviteInfo.ois.readObject();
+            if(invitee != null) {
+                invitee.oos.writeObject("5");
+                invitee.oos.writeObject(userName);
+                ArrayList<String> partyMembers = (ArrayList<String>) invitee.ois.readObject();
                 info.oos.writeObject("6");
                 info.oos.writeObject(partyMembers);
             }
