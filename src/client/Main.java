@@ -1,24 +1,27 @@
 package client;
 
+import gui.creategame.CreateGame;
 import gui.login.Login;
+import gui.mainmenu.Menu;
+import gui.party.Party;
 import gui.settings.Settings;
 import javafx.application.Application;
-import gui.mainmenu.Menu;
-import gui.creategame.CreateGame;
 import javafx.scene.Scene;
 import javafx.scene.control.ListView;
 import javafx.stage.Stage;
+
 import java.util.HashSet;
 
 public class Main extends Application {
     public static Stage window;
-    public static Scene menuScene, createGameScene, settingsScene, loginScene;
+    public static Scene menuScene, createGameScene, settingsScene, loginScene, partyScene;
     public static int resX, resY;
     public static HashSet<String> onlineUsers;
     public static Client client;
-    public static ListView<String> onlinePlayers;
     public static boolean newOnline = false;
     public static boolean isLoaded = false;
+    public static boolean newPartyMember1 = false;
+    public static boolean newPartyMember2 = false;
 
     public static void main(String[] args) {
         launch(args);
@@ -42,6 +45,7 @@ public class Main extends Application {
         menuScene = new Menu().getMenuScene();
         createGameScene = new CreateGame().getCreateGameScene();
         settingsScene = new Settings().getSettingsScene();
+        partyScene = new Party().getPartyScene();
     }
 
     synchronized public static boolean isMainLoaded() {
@@ -57,5 +61,11 @@ public class Main extends Application {
         return newOnline;
     }
 
+    synchronized public static boolean isNewPartyMember1() {
+        return newPartyMember1;
+    }
 
+    synchronized public static boolean isNewPartyMember2() {
+        return newPartyMember2;
+    }
 }

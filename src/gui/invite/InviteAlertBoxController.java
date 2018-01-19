@@ -10,12 +10,13 @@ public class InviteAlertBoxController {
 
     @FXML
     public void initialize() {
-        inviteMessage.setText(InviteAlertBox.invitedBy + "has invited you");
+        inviteMessage.setText(InviteAlertBox.invitedBy + " has invited you");
     }
 
     @FXML
     void accept() {
         InviteAlertBox.close();
+        Main.window.setScene(Main.partyScene);
         Main.client.inviteAccepted(InviteAlertBox.invitedBy);
     }
 

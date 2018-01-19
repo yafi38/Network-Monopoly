@@ -20,20 +20,23 @@ public class ServerRead implements Runnable {
     @Override
     public void run() {
         try {
-            while(true) {
+            while (true) {
                 String str = readString();
                 int command = Integer.parseInt(str);
 
-                switch(command) {
+                switch (command) {
                     case 1:
                         sendInvite();
                         break;
                     case 2:
                         inviteAccepted();
                         break;
+                    case 3:
+                        sendPartyList();
+                        break;
                 }
             }
-        } catch(Exception e)  {
+        } catch (Exception e) {
             System.out.println("In Server Read:" + e);
         }
     }
@@ -57,26 +60,51 @@ public class ServerRead implements Runnable {
             if (inviteInfo != null) {
                 inviteInfo.oos.writeObject("4");
                 inviteInfo.oos.writeObject(userName);
-                System.out.println("Server Sent Invite");
+                System.out.println("Server Sent Invite From " + userName);
             }
-        } catch(Exception e) {
+        } catch (Exception e) {
             System.out.println("While Sending Invite(Server): " + e);
         }
     }
 
     private void inviteAccepted() {         //This thread's client accepted the invite
-        String inviteName = readString();   //The one who invited this client
-        Info invitee = onlineUsers.get(inviteName);
+        String inviteName = readString();
+        Info invitee = onlineUsers.get(inviteName); //The one who invited this client
         try {
-            if(invitee != null) {
-                invitee.oos.writeObject("5");
-                invitee.oos.writeObject(userName);
-                ArrayList<String> partyMembers = (ArrayList<String>) invitee.ois.readObject();
-                info.oos.writeObject("6");
-                info.oos.writeObject(partyMembers);
+            invitee.oos.writeObject("5");
+            invitee.oos.writeObject(userName);
+        } catch (Exception e) {
+            System.out.println("In inviteAccepted " + e);
+            e.printStackTrace();
+        }
+    }
+
+    private void sendPartyList() {
+        String s;
+        try {
+            ArrayList<String> partyMembers = new ArrayList<>();
+            while (true) {
+                Object o = info.ois.readObject();
+                if (o instanceof String) {
+                    s = (String) o;
+                    if (s.equals("0"))
+                        break;
+                    partyMembers.add(s);
+                }
+            }
+
+            int totalMembers = partyMembers.size();
+            for (int i = 0; i < totalMembers; i++) {
+                Info members = onlineUsers.get(partyMembers.get(i));
+                members.oos.writeObject("6");
+                for (String mem : partyMembers)
+                    members.oos.writeObject(mem);
+                members.oos.writeObject("0");
+
             }
         } catch (Exception e) {
             System.out.println("In inviteAccepted " + e);
+            e.printStackTrace();
         }
     }
 }

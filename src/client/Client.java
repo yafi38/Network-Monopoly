@@ -9,17 +9,15 @@ import java.util.ArrayList;
 
 public class Client implements Serializable{
     String name;
-    Socket clientSocket;
+    private Socket clientSocket;
     public String lastOnline;
     public ClientRead cr;
     ObjectOutputStream oos;
     ObjectInputStream ois;
     public ArrayList<String> partyMembers;
-    public int totalPartyMembers;
 
     public Client(String name) {
         this.name = name;
-        totalPartyMembers = 1;
         partyMembers = new ArrayList<>();
         partyMembers.add(name);
         try {
@@ -42,10 +40,10 @@ public class Client implements Serializable{
         }
     }
 
-    public void inviteAccepted(String name) {           //I accepted someone's invite
+    public void inviteAccepted(String inviteeName) {           //I accepted someone's invite
         try {
             oos.writeObject("2");
-            oos.writeObject(name);                      //Who's invite I accepted
+            oos.writeObject(inviteeName);                      //Who's invite I accepted
         } catch (Exception e) {
             System.out.println("In inviteAccepted: " + e);
         }

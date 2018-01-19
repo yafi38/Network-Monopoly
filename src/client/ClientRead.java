@@ -4,14 +4,11 @@ import gui.invite.InviteAlertBox;
 import javafx.application.Platform;
 
 import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ClientRead implements Runnable {
     private Client client;
-    //private ObjectInputStream ois;
-    //private ObjectOutputStream oos;
     private Thread thread;
 
 
@@ -88,7 +85,7 @@ public class ClientRead implements Runnable {
 
     private void addOnlineUser() {
         String s = readString();
-        if(!s.equals(client.name)) {
+        if (!s.equals(client.name)) {
             Main.onlineUsers.add(s);
             //System.out.println(s);
             Main.newOnline = true;
@@ -99,18 +96,16 @@ public class ClientRead implements Runnable {
     private void removeOnlineUser() {
         String s = readString();
         Main.onlineUsers.remove(s);
-        Main.onlinePlayers.getItems().remove(s);
     }
 
     private void getAllOnlineUsers() {
         try {
-            while(true) {
+            while (true) {
                 String s = readString();
-                if(s.equals("3"))
+                if (s.equals("3"))
                     break;
                 else {
                     Main.onlineUsers.add(s);
-                    Main.onlinePlayers.getItems().add(s);
                 }
             }
         } catch (Exception e) {
@@ -129,24 +124,35 @@ public class ClientRead implements Runnable {
         String name;
         name = readString();
         System.out.println("Got invite");
-        Platform.runLater(() ->new InviteAlertBox(name));
+        Platform.runLater(() -> new InviteAlertBox(name));
     }
 
     private void inviteGotAccepted() {          //Someone accepted my invite
         String name = readString();
         Main.client.partyMembers.add(name);
         try {
-            Main.client.oos.writeObject(Main.client.partyMembers);
-        } catch (IOException e) {
+            Main.client.oos.writeObject("3");
+            for (String s : Main.client.partyMembers) {
+                Main.client.oos.writeObject(s);
+            }
+            Main.client.oos.writeObject("0");
+            System.out.println("Sending party members to server");
+        } catch (Exception e) {
             System.out.println("In inviteGotAccepted: " + e);
         }
     }
 
     private void getPartyList() {
-        try {
-            Main.client.partyMembers = (ArrayList<String>) Main.client.ois.readObject();
-        } catch (IOException | ClassNotFoundException e) {
-            System.out.println("While getting party list: " + e);
+        System.out.println("Getting Party List");
+        Main.client.partyMembers.clear();
+        String s;
+        while (true) {
+            s = readString();
+            if (s.equals("0"))
+                break;
+            Main.client.partyMembers.add(s);
         }
+        Main.newPartyMember1 = true;
+        Main.newPartyMember2 = true;
     }
 }
