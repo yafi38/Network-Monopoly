@@ -23,6 +23,6 @@ public class GameGuiController {
         playerTwoButton.setText(Main.client.partyMembers.get(1));
         playerThreeButton.setText(Main.client.partyMembers.get(2));
         playerFourButton.setText(Main.client.partyMembers.get(3));
-        playerTurn.setText(Main.client.partyMembers.get(0));
+        playerTurn.setText(Main.client.partyMembers.get(0) + "'s Turn");
     }
 }
