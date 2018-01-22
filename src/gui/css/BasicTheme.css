@@ -24,11 +24,6 @@
     -fx-background-size: 100% 100%;
 }
 
-.board-background-image {
-    -fx-background-image: url("Board.jpg");
-    -fx-background-size: 100% 100%;
-}
-
 .background-color {
     -fx-background-color: #f9e20e;
 }
@@ -41,12 +36,13 @@
     -fx-font-size: 16;
 }
 
-.label {
-    -fx-font-size: 16;
-}
-
 .welcome-font {
     -fx-font-size: 36;
     -fx-font-weight: bold;
+}
+
+.label {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 18;
 }
 

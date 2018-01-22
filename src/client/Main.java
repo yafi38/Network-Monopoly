@@ -1,6 +1,5 @@
 package client;
 
-import game.Game;
 import gui.creategame.CreateGame;
 import gui.creategame.CreateGameController;
 import gui.login.Login;
@@ -13,7 +12,6 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 
 public class Main extends Application {
