@@ -1,7 +1,9 @@
 package client;
 
+import game.Game;
 import gui.creategame.CreateGame;
 import gui.creategame.CreateGameController;
+import gui.gamegui.GameGuiController;
 import gui.login.Login;
 import gui.mainmenu.Menu;
 import gui.party.Party;
@@ -12,6 +14,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 
 public class Main extends Application {
@@ -22,6 +25,7 @@ public class Main extends Application {
     public static Client client;
     public static CreateGameController createGameController;
     public static PartyController partyController;
+    public static GameGuiController gameGuiController;
 
     public static void main(String[] args) {
         launch(args);
@@ -32,7 +36,7 @@ public class Main extends Application {
         window = primaryStage;
         //window.initStyle(StageStyle.UNDECORATED);
         loadAll();
-        //new Game(new ArrayList<String>(4));
+        //new Game();
         window.setScene(loginScene);
         resX = 1600;
         resY = 900;

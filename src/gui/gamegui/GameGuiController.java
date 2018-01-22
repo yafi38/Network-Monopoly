@@ -4,6 +4,8 @@ import client.Main;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 
 public class GameGuiController {
     @FXML
@@ -15,7 +17,23 @@ public class GameGuiController {
     @FXML
     public Button playerFourButton;
     @FXML
+    public Button rollButton;
+
+    @FXML
     public Label playerTurn;
+
+    @FXML
+    public ImageView diceOne;
+    @FXML
+    public ImageView diceTwo;
+    @FXML
+    public ImageView red;       //player1
+    @FXML
+    public ImageView green;     //player2
+    @FXML
+    public ImageView yellow;    //player3
+    @FXML
+    public ImageView blue;      //player4
 
     @FXML
     public void initialize() {
@@ -24,5 +42,44 @@ public class GameGuiController {
         playerThreeButton.setText(Main.client.partyMembers.get(2));
         playerFourButton.setText(Main.client.partyMembers.get(3));
         playerTurn.setText(Main.client.partyMembers.get(0) + "'s Turn");
+
+        Image img = new Image("gui/gamegui/dice/three.png");
+        diceTwo.setImage(img);
+    }
+
+    @FXML
+    public void rollPressed() {
+        int num1 = (int) (Math.random() * 6);
+        int num2 = (int) (Math.random() * 6);
+
+        diceOne.setImage(showDice(num1));
+        diceTwo.setImage(showDice(num2));
+    }
+
+    private Image showDice(int x) {
+        System.out.println("In show dice");
+        Image img;
+        switch (x) {
+            case 1:
+                img = new Image("gui/gamegui/dice/one.png");
+                break;
+            case 2:
+                img = new Image("gui/gamegui/dice/two.png");
+                break;
+            case 3:
+                img = new Image("gui/gamegui/dice/three.png");
+                break;
+            case 4:
+                img = new Image("gui/gamegui/dice/four.png");
+                break;
+            case 5:
+                img = new Image("gui/gamegui/dice/five.png");
+                break;
+            default:
+                img = new Image("gui/gamegui/dice/six.png");
+                break;
+        }
+
+        return img;
     }
 }

@@ -27,4 +27,14 @@ public class Game {
         }
 
     }
+
+    //for debugging
+    public Game() {
+        try {
+            gameGuiScene = new GameGui().getGameGuiScene();
+            Platform.runLater(() -> Main.window.setScene(gameGuiScene));
+        } catch (Exception e) {
+            System.out.println("While Creating Game: " + e);
+        }
+    }
 }

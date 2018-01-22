@@ -1,5 +1,7 @@
 package client;
 
+import game.Game;
+
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -26,6 +28,7 @@ public class Client implements Serializable{
             ois = new ObjectInputStream(clientSocket.getInputStream());
             oos.writeObject(name);
             cr = new ClientRead(this);
+            //new Game();
         } catch (IOException e) {
             System.out.println("Client Constructor: " + e);
         }
