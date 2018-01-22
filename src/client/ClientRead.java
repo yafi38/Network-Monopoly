@@ -51,6 +51,9 @@ public class ClientRead implements Runnable {
                     case 7:
                         gameStarted();
                         break;
+                    case 8:
+                        getDiceRoll();
+                        break;
 
                 }
             }
@@ -155,6 +158,16 @@ public class ClientRead implements Runnable {
     }
 
     private void gameStarted() {
+        Main.client.loadGameData();
+        String s = readString();
+        Main.client.myNum = Integer.parseInt(s);
+        System.out.println("My Number: " + Main.client.myNum);
         new Game(Main.client.partyMembers);
+    }
+
+    private void getDiceRoll() {
+        String s = readString();
+        int x = Integer.parseInt(s);
+        Main.gameGuiController.updatePos(x);
     }
 }

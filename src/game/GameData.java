@@ -1,14 +1,16 @@
 package game;
 
+import database.Property;
+
 import java.util.ArrayList;
 
 public class GameData {
-    String playerName;
-    Double currentGold;
-    ArrayList<String> ownedProperty;
-    int curPos;
+    public String playerName;
+    public Double currentGold;
+    public ArrayList<String> ownedProperty;
+    public int curPos;
 
-    GameData(String name) {
+    public GameData(String name) {
         playerName = name;
         currentGold = 500.0;
         ownedProperty = new ArrayList<>();

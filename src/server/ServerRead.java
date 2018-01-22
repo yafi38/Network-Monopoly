@@ -39,11 +39,13 @@ public class ServerRead implements Runnable {
                     case 4:
                         createGame();
                         break;
+                    case 5:
+                        diceRoll();
+                        break;
                 }
             }
         } catch (Exception e) {
             System.out.println("In Server Read:" + e);
-            e.printStackTrace();
         }
     }
 
@@ -81,7 +83,6 @@ public class ServerRead implements Runnable {
             invitee.oos.writeObject(userName);
         } catch (Exception e) {
             System.out.println("In inviteAccepted " + e);
-            e.printStackTrace();
         }
     }
 
@@ -125,9 +126,28 @@ public class ServerRead implements Runnable {
             for (int i = 1; i < 4; i++) {
                 Info tempInfo = onlineUsers.get(partyMembers.get(i));
                 tempInfo.oos.writeObject("7");
+                tempInfo.oos.writeObject("" + i);
             }
         } catch (IOException e) {
             System.out.println("In Create Game Server " + e);
+        }
+    }
+
+    private void diceRoll() {
+        try {
+            int x;
+            String str = readString();
+            x = Integer.parseInt(str);
+
+            for (String s : partyMembers) {
+                if (!s.equals(userName)) {
+                    Info tempInfo = onlineUsers.get(s);
+                    tempInfo.oos.writeObject("8");
+                    tempInfo.oos.writeObject(str);
+                }
+            }
+        } catch (IOException e) {
+            System.out.println("In Server Dice Roll: " + e);
         }
     }
 }

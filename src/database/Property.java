@@ -1,10 +1,10 @@
 package database;
 
 public class Property {
-    String name;
-    int owner;  //4 players of a game will be numbered from 1-4. if a property has no owner then its owner is 0
-    int price;
-    double posX, posY;
+    public String name;
+    public int owner;  //4 players of a game will be numbered from 1-4. if a property has no owner then its owner is 0
+    public int price;
+    public double posX, posY;
 
     public Property(String name, int owner, int price) {
         this.name = name;
@@ -12,7 +12,7 @@ public class Property {
         this.price = price;
     }
 
-    public Property[] createProperty() {
+    public static Property[] createProperty() {
         Property[] properties = new Property[40];
         properties[0] = new Property("Go", 0, 200);//take Salary 200
         properties[1]=new Property("Mediteranean Avenue",0,60);
@@ -57,7 +57,7 @@ public class Property {
 
         properties[0].posX=745;
         properties[0].posY=745;
-        double initX1 = 660, initY1 = 560;
+        double initX1 = 660, initY1 = 760;
         double diff = 60;
 
         for(int i=1; i<10; i++) {
