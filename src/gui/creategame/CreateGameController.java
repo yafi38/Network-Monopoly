@@ -1,6 +1,7 @@
 package gui.creategame;
 
 import client.Main;
+import game.Game;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
@@ -14,18 +15,11 @@ public class CreateGameController {
     ListView<String> partyList2;
 
     @FXML
-    public void initialize() {
-        updateOnlinePlayers();
-        updateParty1();
-    }
-
-    @FXML
     public void invite() {
         String name = onlinePlayers.getSelectionModel().getSelectedItem();
         //System.out.println("Inviting " + name);
         Main.client.sendInvite(name);
     }
-
 
     @FXML
     public void cancel() {
@@ -33,7 +27,14 @@ public class CreateGameController {
         //Main.window.setFullScreen(true);
     }
 
-    private void updateOnlinePlayers() {
+    @FXML
+    public void startGame() {
+        if (Main.client.partyMembers.size() == 4) {
+            new Game(Main.client.partyMembers);
+        }
+    }
+
+    /*private void updateOnlinePlayers() {
         Runnable task = () -> {
             //System.out.println("Started");
             while(true) {
@@ -58,9 +59,9 @@ public class CreateGameController {
         Thread updateThread = new Thread(task);
         updateThread.setDaemon(true);
         updateThread.start();
-    }
+    }*/
 
-    private void updateParty1() {
+    /*private void updateParty1() {
         Runnable partyUpdater = () -> {
             System.out.println("Inside Party Updater Controller");
             while(true) {
@@ -76,6 +77,19 @@ public class CreateGameController {
         Thread updatePartyThread1 = new Thread(partyUpdater);
         updatePartyThread1.setDaemon(true);
         updatePartyThread1.start();
+    }*/
+
+    public void updateOnlinePlayers() {
+        Platform.runLater(() -> {
+            onlinePlayers.getItems().clear();
+            onlinePlayers.getItems().addAll(Main.onlineUsers);
+        });
     }
 
+    public void updatePartyMember() {
+        Platform.runLater(() -> {
+            partyList2.getItems().clear();
+            partyList2.getItems().addAll(Main.client.partyMembers);
+        });
+    }
 }

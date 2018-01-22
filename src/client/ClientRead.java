@@ -88,8 +88,9 @@ public class ClientRead implements Runnable {
         if (!s.equals(client.name)) {
             Main.onlineUsers.add(s);
             //System.out.println(s);
-            Main.newOnline = true;
-            Main.client.lastOnline = s;
+           // Main.newOnline = true;
+            //Main.client.lastOnline = s;
+            Main.createGameController.updateOnlinePlayers();
         }
     }
 
@@ -112,7 +113,9 @@ public class ClientRead implements Runnable {
             System.out.println("In getAllOnlineUsers: " + e);
         }
 
-        Main.isLoaded = true;
+        Main.createGameController.updateOnlinePlayers();
+
+        //Main.isLoaded = true;
         /*System.out.println("Getting all online users");
         for(String h : Main.onlineUsers) {
             System.out.println(h);
@@ -152,7 +155,9 @@ public class ClientRead implements Runnable {
                 break;
             Main.client.partyMembers.add(s);
         }
-        Main.newPartyMember1 = true;
-        Main.newPartyMember2 = true;
+        //Main.newPartyMember1 = true;
+        //Main.newPartyMember2 = true;
+        Main.createGameController.updatePartyMember();
+        Main.partyController.updatePartyLeader();
     }
 }

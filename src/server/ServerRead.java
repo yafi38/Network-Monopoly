@@ -34,6 +34,9 @@ public class ServerRead implements Runnable {
                     case 3:
                         sendPartyList();
                         break;
+                    case 4:
+                        //createGame();
+                        break;
                 }
             }
         } catch (Exception e) {

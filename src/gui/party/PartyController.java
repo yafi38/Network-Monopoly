@@ -9,17 +9,17 @@ public class PartyController {
     @FXML
     ListView<String> partyList;
 
-    @FXML
+    /*@FXML
     public void initialize() {
         updateParty2();
-    }
+    }*/
 
     @FXML
     void leave() {
         Main.window.setScene(Main.menuScene);
     }
 
-    private void updateParty2() {
+    /*private void updateParty2() {
         Runnable partyUpdater = () -> {
             //System.out.println("Inside Party Updater");
             while(true) {
@@ -34,5 +34,12 @@ public class PartyController {
         Thread updatePartyThread2 = new Thread(partyUpdater);
         updatePartyThread2.setDaemon(true);
         updatePartyThread2.start();
+    }*/
+
+    public void updatePartyLeader() {
+        Platform.runLater(() -> {
+            partyList.getItems().clear();
+            partyList.getItems().addAll(Main.client.partyMembers);
+        });
     }
 }

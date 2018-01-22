@@ -49,4 +49,12 @@ public class Client implements Serializable{
         }
     }
 
+    public void createGane() {
+        try {
+            oos.writeObject("3");
+        } catch(Exception e) {
+            System.out.println("While creating new game");
+        }
+    }
+
 }
