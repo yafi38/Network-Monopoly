@@ -20,7 +20,6 @@ public class Main extends Application {
     public static int resX, resY;
     public static HashSet<String> onlineUsers;
     public static Client client;
-
     public static CreateGameController createGameController;
     public static PartyController partyController;
 
@@ -54,5 +53,4 @@ public class Main extends Application {
         partyController = pt.getPartyController();
         settingsScene = new Settings().getSettingsScene();
     }
-
 }
