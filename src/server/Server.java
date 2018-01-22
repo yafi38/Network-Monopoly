@@ -44,7 +44,7 @@ public class Server {
                 onlineUsers.put(name, info);
             }
 
-            info.oos.writeObject("3");
+            info.oos.writeObject("0");
 
         } catch (Exception e) {
             System.out.println("In addNewClient: " + e);

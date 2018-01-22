@@ -1,5 +1,6 @@
 package server;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -8,6 +9,7 @@ public class ServerRead implements Runnable {
     private Info info;
     private Thread thread;
     private HashMap<String, Info> onlineUsers;
+    private ArrayList<String> partyMembers;
 
     ServerRead(String userName, Info info, HashMap<String, Info> onlineUsers) {
         this.userName = userName;
@@ -35,12 +37,13 @@ public class ServerRead implements Runnable {
                         sendPartyList();
                         break;
                     case 4:
-                        //createGame();
+                        createGame();
                         break;
                 }
             }
         } catch (Exception e) {
             System.out.println("In Server Read:" + e);
+            e.printStackTrace();
         }
     }
 
@@ -85,29 +88,46 @@ public class ServerRead implements Runnable {
     private void sendPartyList() {
         String s;
         try {
-            ArrayList<String> partyMembers = new ArrayList<>();
+            ArrayList<String> pm = new ArrayList<>();   //Get's party list from invitee and sends them to all other members
             while (true) {
                 Object o = info.ois.readObject();
                 if (o instanceof String) {
                     s = (String) o;
                     if (s.equals("0"))
                         break;
-                    partyMembers.add(s);
+                    pm.add(s);
                 }
             }
 
-            int totalMembers = partyMembers.size();
+            int totalMembers = pm.size();
             for (int i = 0; i < totalMembers; i++) {
-                Info members = onlineUsers.get(partyMembers.get(i));
+                Info members = onlineUsers.get(pm.get(i));
                 members.oos.writeObject("6");
-                for (String mem : partyMembers)
+                for (String mem : pm)
                     members.oos.writeObject(mem);
                 members.oos.writeObject("0");
 
             }
         } catch (Exception e) {
             System.out.println("In inviteAccepted " + e);
-            e.printStackTrace();
+            //e.printStackTrace();
+        }
+    }
+
+    private void createGame() {
+        partyMembers = new ArrayList<>();
+        for (int i = 0; i < 4; i++) {
+            String s = readString();
+            partyMembers.add(s);
+        }
+
+        try {
+            for (int i = 1; i < 4; i++) {
+                Info tempInfo = onlineUsers.get(partyMembers.get(i));
+                tempInfo.oos.writeObject("7");
+            }
+        } catch (IOException e) {
+            System.out.println("In Create Game Server " + e);
         }
     }
 }

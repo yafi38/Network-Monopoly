@@ -49,11 +49,15 @@ public class Client implements Serializable{
         }
     }
 
-    public void createGane() {
+    public void createGame() {
+        System.out.println("Inside Client Create Game");
         try {
-            oos.writeObject("3");
-        } catch(Exception e) {
-            System.out.println("While creating new game");
+            oos.writeObject("4");
+            for(String s : Main.client.partyMembers) {
+                oos.writeObject(s);
+            }
+        } catch(IOException e) {
+            System.out.println("While creating new game in client" + e);
         }
     }
 

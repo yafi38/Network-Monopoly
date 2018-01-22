@@ -24,6 +24,10 @@
     -fx-background-size: 100% 100%;
 }
 
+.board-background-image {
+    -fx-background-image: url("Board.jpg");
+    -fx-background-size: 100% 100%;
+}
 
 .background-color {
     -fx-background-color: #f9e20e;

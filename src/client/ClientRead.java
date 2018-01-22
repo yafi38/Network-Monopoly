@@ -1,5 +1,6 @@
 package client;
 
+import game.Game;
 import gui.invite.InviteAlertBox;
 import javafx.application.Platform;
 
@@ -47,6 +48,9 @@ public class ClientRead implements Runnable {
                     case 6:
                         getPartyList();
                         break;
+                    case 7:
+                        gameStarted();
+                        break;
 
                 }
             }
@@ -87,9 +91,6 @@ public class ClientRead implements Runnable {
         String s = readString();
         if (!s.equals(client.name)) {
             Main.onlineUsers.add(s);
-            //System.out.println(s);
-           // Main.newOnline = true;
-            //Main.client.lastOnline = s;
             Main.createGameController.updateOnlinePlayers();
         }
     }
@@ -103,7 +104,7 @@ public class ClientRead implements Runnable {
         try {
             while (true) {
                 String s = readString();
-                if (s.equals("3"))
+                if (s.equals("0"))
                     break;
                 else {
                     Main.onlineUsers.add(s);
@@ -114,13 +115,6 @@ public class ClientRead implements Runnable {
         }
 
         Main.createGameController.updateOnlinePlayers();
-
-        //Main.isLoaded = true;
-        /*System.out.println("Getting all online users");
-        for(String h : Main.onlineUsers) {
-            System.out.println(h);
-        }
-        System.out.println("End Getting");*/
     }
 
     private void getInvite() {
@@ -139,14 +133,14 @@ public class ClientRead implements Runnable {
                 Main.client.oos.writeObject(s);
             }
             Main.client.oos.writeObject("0");
-            System.out.println("Sending party members to server");
+            //System.out.println("Sending party members to server");
         } catch (Exception e) {
             System.out.println("In inviteGotAccepted: " + e);
         }
     }
 
     private void getPartyList() {
-        System.out.println("Getting Party List");
+        //System.out.println("Getting Party List");
         Main.client.partyMembers.clear();
         String s;
         while (true) {
@@ -155,9 +149,12 @@ public class ClientRead implements Runnable {
                 break;
             Main.client.partyMembers.add(s);
         }
-        //Main.newPartyMember1 = true;
-        //Main.newPartyMember2 = true;
+
         Main.createGameController.updatePartyMember();
         Main.partyController.updatePartyLeader();
+    }
+
+    private void gameStarted() {
+        new Game(Main.client.partyMembers);
     }
 }

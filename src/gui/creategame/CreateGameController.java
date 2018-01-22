@@ -30,54 +30,10 @@ public class CreateGameController {
     @FXML
     public void startGame() {
         if (Main.client.partyMembers.size() == 4) {
+            Main.client.createGame();
             new Game(Main.client.partyMembers);
         }
     }
-
-    /*private void updateOnlinePlayers() {
-        Runnable task = () -> {
-            //System.out.println("Started");
-            while(true) {
-                if (Main.isMainLoaded()) {
-                    onlinePlayers.getItems().addAll(Main.onlineUsers);
-                    //System.out.println("Main is loaded");
-                    break;
-                }
-            }
-
-            while(true) {
-                if (Main.isNewOnline()) {
-                    //System.out.println("Loading People");
-                    if (Main.client.lastOnline != null) {
-                        Platform.runLater(() -> onlinePlayers.getItems().add(Main.client.lastOnline));
-                    }
-                    Main.newOnline = false;
-                }
-            }
-        };
-
-        Thread updateThread = new Thread(task);
-        updateThread.setDaemon(true);
-        updateThread.start();
-    }*/
-
-    /*private void updateParty1() {
-        Runnable partyUpdater = () -> {
-            System.out.println("Inside Party Updater Controller");
-            while(true) {
-                if(Main.isNewPartyMember1()) {
-                    System.out.println("xkxkxkxk");
-                    Platform.runLater(() -> partyList2.getItems().clear());
-                    Platform.runLater(() -> partyList2.getItems().addAll(Main.client.partyMembers));
-                    Main.newPartyMember1 = false;
-                }
-            }
-        };
-
-        Thread updatePartyThread1 = new Thread(partyUpdater);
-        updatePartyThread1.setDaemon(true);
-        updatePartyThread1.start();
-    }*/
 
     public void updateOnlinePlayers() {
         Platform.runLater(() -> {
