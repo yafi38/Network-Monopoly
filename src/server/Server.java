@@ -2,15 +2,18 @@ package server;
 
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Server {
     private HashMap<String, Info> onlineUsers;
     private ServerSocket serverSocket;
+    static ArrayList<String> partyMembers;
 
     private Server() {
         onlineUsers = new HashMap<>();
+        partyMembers = new ArrayList<>();
         try {
             serverSocket = new ServerSocket(38383);
             while(true) {

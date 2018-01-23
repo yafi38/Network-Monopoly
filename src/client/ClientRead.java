@@ -123,7 +123,7 @@ public class ClientRead implements Runnable {
     private void getInvite() {
         String name;
         name = readString();
-        System.out.println("Got invite");
+        //System.out.println("Got invite");
         Platform.runLater(() -> new InviteAlertBox(name));
     }
 
@@ -166,6 +166,7 @@ public class ClientRead implements Runnable {
     }
 
     private void getDiceRoll() {
+        //System.out.println("got dice roll");
         String s = readString();
         int x = Integer.parseInt(s);
         Main.gameGuiController.updatePos(x);

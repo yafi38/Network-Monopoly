@@ -58,7 +58,7 @@ public class Property {
         properties[0].posX=745;
         properties[0].posY=745;
         double initX1 = 660, initY1 = 760;
-        double diff = 60;
+        double diff = 65;
 
         for(int i=1; i<10; i++) {
             properties[i].posX = initX1;

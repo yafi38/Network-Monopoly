@@ -12,7 +12,7 @@ import java.net.Socket;
 import java.util.ArrayList;
 
 public class Client implements Serializable{
-    String name;
+    public String name;
     private Socket clientSocket;
     public String lastOnline;
     public ClientRead cr;
@@ -84,6 +84,7 @@ public class Client implements Serializable{
 
     public void diceRoll(int x) {
         try {
+            //System.out.println("Dice roll sent");
             oos.writeObject("5");
             String s = "" + x;
             oos.writeObject(s);

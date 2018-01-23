@@ -9,7 +9,6 @@ public class ServerRead implements Runnable {
     private Info info;
     private Thread thread;
     private HashMap<String, Info> onlineUsers;
-    private ArrayList<String> partyMembers;
 
     ServerRead(String userName, Info info, HashMap<String, Info> onlineUsers) {
         this.userName = userName;
@@ -57,6 +56,7 @@ public class ServerRead implements Runnable {
             s = (String) o;
         } catch (Exception e) {
             System.out.println("While Reading String: " + e);
+            e.printStackTrace();
         }
         return s;
     }
@@ -68,7 +68,7 @@ public class ServerRead implements Runnable {
             if (inviteInfo != null) {
                 inviteInfo.oos.writeObject("4");
                 inviteInfo.oos.writeObject(userName);
-                System.out.println("Server Sent Invite From " + userName);
+                //System.out.println("Server Sent Invite From " + userName);
             }
         } catch (Exception e) {
             System.out.println("While Sending Invite(Server): " + e);
@@ -116,15 +116,15 @@ public class ServerRead implements Runnable {
     }
 
     private void createGame() {
-        partyMembers = new ArrayList<>();
+        Server.partyMembers = new ArrayList<>();
         for (int i = 0; i < 4; i++) {
             String s = readString();
-            partyMembers.add(s);
+            Server.partyMembers.add(s);
         }
 
         try {
             for (int i = 1; i < 4; i++) {
-                Info tempInfo = onlineUsers.get(partyMembers.get(i));
+                Info tempInfo = onlineUsers.get(Server.partyMembers.get(i));
                 tempInfo.oos.writeObject("7");
                 tempInfo.oos.writeObject("" + i);
             }
@@ -135,12 +135,14 @@ public class ServerRead implements Runnable {
 
     private void diceRoll() {
         try {
-            int x;
+            //int x;
             String str = readString();
-            x = Integer.parseInt(str);
+            //x = Integer.parseInt(str);
+            //System.out.println("dice roll got from " + userName);
 
-            for (String s : partyMembers) {
+            for (String s : Server.partyMembers) {
                 if (!s.equals(userName)) {
+                    System.out.println("Sending dice roll to " + s);
                     Info tempInfo = onlineUsers.get(s);
                     tempInfo.oos.writeObject("8");
                     tempInfo.oos.writeObject(str);

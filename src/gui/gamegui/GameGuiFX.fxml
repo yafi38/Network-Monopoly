@@ -53,7 +53,7 @@
       </Pane>
       <VBox alignment="TOP_CENTER" spacing="15.0">
          <children>
-            <Label fx:id="playerTurn" text="Player's Turn" />
+            <Label fx:id="myName" text="My Name" />
             <ImageView fx:id="diceOne" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@dice/one.png" />
@@ -65,6 +65,7 @@
                </image>
             </ImageView>
             <Button fx:id="rollButton" mnemonicParsing="false" onAction="#rollPressed" styleClass="small-button" text="Roll" />
+            <Label fx:id="playerTurn" text="Player's Turn" />
          </children>
          <padding>
             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />

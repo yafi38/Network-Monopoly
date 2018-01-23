@@ -35,6 +35,8 @@ public class GameGuiController {
     public ImageView yellow;    //player3
     @FXML
     public ImageView blue;      //player4
+    @FXML
+    public Label myName;
 
     @FXML
     public void initialize() {
@@ -43,22 +45,23 @@ public class GameGuiController {
         playerThreeButton.setText(Main.client.partyMembers.get(2));
         playerFourButton.setText(Main.client.partyMembers.get(3));
         playerTurn.setText(Main.client.partyMembers.get(0) + "'s Turn");
-        Image img = new Image("gui/gamegui/dice/three.png");
-        diceTwo.setImage(img);
+        myName.setText(Main.client.name);
+        //Image img = new Image("gui/gamegui/dice/three.png");
+        //diceTwo.setImage(img);
     }
 
     @FXML
     public void rollPressed() {
         if (Main.client.whosMove == Main.client.myNum) {
-            int num1 = (int) (Math.random() * 6);
-            int num2 = (int) (Math.random() * 6);
+            int num1 = (int) Math.ceil(Math.random() * 6);
+            int num2 = (int) Math.ceil(Math.random() * 6);
 
             diceOne.setImage(showDice(num1));
             diceTwo.setImage(showDice(num2));
 
-            updatePos(num1 + num2);
-
             Main.client.diceRoll(num1 + num2);
+
+            updatePos(num1 + num2);
         }
     }
 
@@ -81,7 +84,11 @@ public class GameGuiController {
             case 5:
                 img = new Image("gui/gamegui/dice/five.png");
                 break;
+            case 6:
+                img = new Image("gui/gamegui/dice/six.png");
+                break;
             default:
+                System.out.println("Wrong Dice Rolled");
                 img = new Image("gui/gamegui/dice/six.png");
                 break;
         }
@@ -101,28 +108,29 @@ public class GameGuiController {
             }
             case 1: {
                 Platform.runLater(() -> {
-                    green.setLayoutX(Main.client.property[Main.client.gameData[0].curPos].posX);
-                    green.setLayoutY(Main.client.property[Main.client.gameData[0].curPos].posY);
+                    green.setLayoutX(Main.client.property[Main.client.gameData[1].curPos].posX);
+                    green.setLayoutY(Main.client.property[Main.client.gameData[1].curPos].posY);
                 });
                 break;
             }
             case 2: {
                 Platform.runLater(() -> {
-                    yellow.setLayoutX(Main.client.property[Main.client.gameData[0].curPos].posX);
-                    yellow.setLayoutY(Main.client.property[Main.client.gameData[0].curPos].posY);
+                    yellow.setLayoutX(Main.client.property[Main.client.gameData[2].curPos].posX);
+                    yellow.setLayoutY(Main.client.property[Main.client.gameData[2].curPos].posY);
                 });
                 break;
             }
             case 3: {
                 Platform.runLater(() -> {
-                    blue.setLayoutX(Main.client.property[Main.client.gameData[0].curPos].posX);
-                    blue.setLayoutY(Main.client.property[Main.client.gameData[0].curPos].posY);
+                    blue.setLayoutX(Main.client.property[Main.client.gameData[3].curPos].posX);
+                    blue.setLayoutY(Main.client.property[Main.client.gameData[3].curPos].posY);
                 });
                 break;
             }
         }
 
         Main.client.whosMove = (Main.client.whosMove + 1) % 4;
-        System.out.println("Who's move: " + Main.client.whosMove);
+        Platform.runLater(() -> playerTurn.setText(Main.client.partyMembers.get(Main.client.whosMove) + "'s Turn"));
+        //System.out.println("Who's move: " + Main.client.whosMove);
     }
 }
