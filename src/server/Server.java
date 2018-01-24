@@ -2,15 +2,18 @@ package server;
 
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Server {
     private HashMap<String, Info> onlineUsers;
     private ServerSocket serverSocket;
+    static ArrayList<String> partyMembers;
 
     private Server() {
         onlineUsers = new HashMap<>();
+        partyMembers = new ArrayList<>();
         try {
             serverSocket = new ServerSocket(38383);
             while(true) {
@@ -31,6 +34,7 @@ public class Server {
 
             if(o != null && o instanceof String) {
                 name = (String) o;
+                new ServerRead(name, info, onlineUsers);
                 for (Map.Entry<String, Info> user : onlineUsers.entrySet()) {
                     Info tempInfo = user.getValue();
                     String userName = user.getKey();
@@ -43,7 +47,7 @@ public class Server {
                 onlineUsers.put(name, info);
             }
 
-            info.oos.writeObject("3");
+            info.oos.writeObject("0");
 
         } catch (Exception e) {
             System.out.println("In addNewClient: " + e);

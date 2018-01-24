@@ -18,7 +18,7 @@ public class LoginController {
         String userName = userNameField.getText();
         Main.client = new Client(userName);
         Main.onlineUsers = new HashSet<>();
-        Main.onlinePlayers = new ListView<>();
         Main.client.lastOnline = null;
+        System.out.println(userName);
     }
 }

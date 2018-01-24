@@ -15,5 +15,6 @@ public class MenuController {
 
     public void exit() {
         Main.window.close();
+        System.exit(0);
     }
 }

@@ -1,12 +1,10 @@
 package gui.creategame;
 
 import client.Main;
+import game.Game;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
-
-import java.util.HashSet;
-import java.util.Set;
 
 public class CreateGameController {
 
@@ -14,11 +12,13 @@ public class CreateGameController {
     ListView<String> onlinePlayers;
 
     @FXML
-    ListView<String> inParty;
+    ListView<String> partyList2;
 
     @FXML
-    public void initialize() {
-        update();
+    public void invite() {
+        String name = onlinePlayers.getSelectionModel().getSelectedItem();
+        //System.out.println("Inviting " + name);
+        Main.client.sendInvite(name);
     }
 
     @FXML
@@ -27,31 +27,25 @@ public class CreateGameController {
         //Main.window.setFullScreen(true);
     }
 
-    private void update() {
-        Runnable task = () -> {
-            System.out.println("Started");
-            while(true) {
-                if (Main.isMainLoaded()) {
-                    Platform.runLater(() -> onlinePlayers.getItems().addAll(Main.onlineUsers));
-                    System.out.println("Main is loaded");
-                    break;
-                }
-            }
-
-            while(true) {
-                if (Main.isNewOnline()) {
-                    System.out.println("Loading People");
-                    if (Main.client.lastOnline != null) {
-                        Platform.runLater(() -> onlinePlayers.getItems().add(Main.client.lastOnline));
-                    }
-                    Main.newOnline = false;
-                }
-            }
-        };
-
-        Thread updateThread = new Thread(task);
-        updateThread.setDaemon(true);
-        updateThread.start();
+    @FXML
+    public void startGame() {
+        if (Main.client.partyMembers.size() == 4) {
+            Main.client.createGame();
+            new Game(Main.client.partyMembers);
+        }
     }
 
+    public void updateOnlinePlayers() {
+        Platform.runLater(() -> {
+            onlinePlayers.getItems().clear();
+            onlinePlayers.getItems().addAll(Main.onlineUsers);
+        });
+    }
+
+    public void updatePartyMember() {
+        Platform.runLater(() -> {
+            partyList2.getItems().clear();
+            partyList2.getItems().addAll(Main.client.partyMembers);
+        });
+    }
 }

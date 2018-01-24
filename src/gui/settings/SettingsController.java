@@ -1,8 +1,8 @@
 package gui.settings;
 
+import client.Main;
 import javafx.fxml.FXML;
 import javafx.scene.control.ChoiceBox;
-import client.Main;
 
 public class SettingsController {
     @FXML

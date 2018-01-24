@@ -1,0 +1,28 @@
+go-745,745
+
+property[1]=660,760
+erpor 9 porjnto 660-i*65;
+
+
+in jail(visiting)-55,760
+
+
+property[11]=40,660
+erpor 19 porjnto 660-i*60;
+
+
+free parking-50,50
+
+property[21]=140,40
+erpor 29 porjnto 140+i*60;
+
+
+in jail=740,55
+
+
+property[31]=760,135;
+erpor 39 porjnto 135+i*60;
+
+
+
+

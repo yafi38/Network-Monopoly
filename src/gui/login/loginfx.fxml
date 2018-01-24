@@ -17,7 +17,7 @@
       <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="25.0">
          <children>
             <Label text="Username" />
-            <TextField fx:id="userNameField" promptText="username" />
+            <TextField fx:id="userNameField" onAction="#loginButtonPressed" promptText="username" />
          </children>
       </HBox>
       <Button mnemonicParsing="false" onAction="#loginButtonPressed" styleClass="medium-button" text="Login" />
