@@ -3,6 +3,7 @@ package gui.gamegui;
 import client.Main;
 import database.Property;
 import gui.buyland.BuyLand;
+import gui.showinfo.ShowInfo;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -61,10 +62,10 @@ public class GameGuiController {
             diceOne.setImage(showDice(num1));
             diceTwo.setImage(showDice(num2));
 
-            int x = num1+num2;
+            int x = num1 + num2;
 
             Main.client.gameData[Main.client.myNum].curPos = (Main.client.gameData[Main.client.myNum].curPos + x) % 40;
-            if(Main.client.gameData[Main.client.myNum].curPos == 30)
+            if (Main.client.gameData[Main.client.myNum].curPos == 30)
                 Main.client.gameData[Main.client.myNum].curPos = 10;
 
             updatePos(x);
@@ -75,17 +76,19 @@ public class GameGuiController {
             Property property = Main.client.property[curPos];
             System.out.println(property.owner);
 
-            if(property.owner == 0) {
-                new BuyLand(property.name, property.price);
-            } else if(property.owner == -1) {
-                if(curPos == 0)
-                    Main.client.gameData[Main.client.myNum].currentGold += property.price;
-                else if(curPos == 30) {
+            if (property.owner != Main.client.myNum - 1) {
+                if (property.owner == 0) {
+                    new BuyLand(property.name, property.price);
+                } else if (property.owner == -1) {
+                    if (curPos == 0)
+                        Main.client.gameData[Main.client.myNum].currentGold += property.price;
+                    else if (curPos == 30) {
+                        Main.client.gameData[Main.client.myNum].currentGold -= property.price;
+                    }
+
+                } else if (property.owner == -2) {
                     Main.client.gameData[Main.client.myNum].currentGold -= property.price;
                 }
-
-            } else if(property.owner == -2) {
-                Main.client.gameData[Main.client.myNum].currentGold -= property.price;
             }
         }
     }
@@ -157,5 +160,25 @@ public class GameGuiController {
         Main.client.whosMove = (Main.client.whosMove + 1) % 4;
         Platform.runLater(() -> playerTurn.setText(Main.client.partyMembers.get(Main.client.whosMove) + "'s Turn"));
         //System.out.println("Who's move: " + Main.client.whosMove);
+    }
+
+    @FXML
+    public void playerOneButtonPressed() {
+        new ShowInfo(0);
+    }
+
+    @FXML
+    public void playerTwoButtonPressed() {
+        new ShowInfo(1);
+    }
+
+    @FXML
+    public void playerThreeButtonPressed() {
+        new ShowInfo(2);
+    }
+
+    @FXML
+    public void playerFourButtonPressed() {
+        new ShowInfo(3);
     }
 }

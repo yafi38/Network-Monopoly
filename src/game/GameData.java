@@ -1,7 +1,5 @@
 package game;
 
-import database.Property;
-
 import java.util.ArrayList;
 
 public class GameData {
@@ -12,7 +10,7 @@ public class GameData {
 
     public GameData(String name) {
         playerName = name;
-        currentGold = 500.0;
+        currentGold = 1500.0;
         ownedProperty = new ArrayList<>();
         curPos = 0;
     }

@@ -13,10 +13,10 @@
    <children>
       <VBox alignment="TOP_CENTER" spacing="15.0">
          <children>
-            <Button fx:id="playerOneButton" mnemonicParsing="false" prefWidth="100.0" styleClass="small-button" text="Player 1" />
-            <Button fx:id="playerTwoButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" prefWidth="100.0" styleClass="small-button" text="Player 2" />
-            <Button fx:id="playerThreeButton" layoutX="10.0" layoutY="47.0" mnemonicParsing="false" prefWidth="100.0" styleClass="small-button" text="Player 3" />
-            <Button fx:id="playerFourButton" layoutX="10.0" layoutY="84.0" mnemonicParsing="false" prefWidth="100.0" styleClass="small-button" text="Player 4" />
+            <Button fx:id="playerOneButton" mnemonicParsing="false" onAction="#playerOneButtonPressed" prefWidth="100.0" styleClass="small-button" text="Player 1" />
+            <Button fx:id="playerTwoButton" layoutX="10.0" layoutY="10.0" mnemonicParsing="false" onAction="#playerTwoButtonPressed" prefWidth="100.0" styleClass="small-button" text="Player 2" />
+            <Button fx:id="playerThreeButton" layoutX="10.0" layoutY="47.0" mnemonicParsing="false" onAction="#playerThreeButtonPressed" prefWidth="100.0" styleClass="small-button" text="Player 3" />
+            <Button fx:id="playerFourButton" layoutX="10.0" layoutY="84.0" mnemonicParsing="false" onAction="#playerFourButtonPressed" prefWidth="100.0" styleClass="small-button" text="Player 4" />
          </children>
          <padding>
             <Insets bottom="15.0" left="15.0" right="15.0" top="15.0" />
