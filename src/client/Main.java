@@ -44,6 +44,7 @@ public class Main extends Application {
         window.setHeight(resY);
         window.setMaximized(true);
         window.show();
+
     }
 
     private void loadAll() throws Exception {

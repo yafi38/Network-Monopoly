@@ -93,4 +93,15 @@ public class Client implements Serializable{
         }
     }
 
+    public void sendNewLandInfo(String landName, double price) {
+        try {
+            oos.writeObject("6");
+            oos.writeObject("" + myNum);
+            oos.writeObject(landName);
+            oos.writeObject(price);
+        } catch (IOException e) {
+            System.out.println("While sending new land info " + e);
+        }
+    }
+
 }

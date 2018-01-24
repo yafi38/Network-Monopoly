@@ -41,6 +41,9 @@ public class ServerRead implements Runnable {
                     case 5:
                         diceRoll();
                         break;
+                    case 6:
+                        getAndSendNewLandInfo();
+                        break;
                 }
             }
         } catch (Exception e) {
@@ -150,6 +153,29 @@ public class ServerRead implements Runnable {
             }
         } catch (IOException e) {
             System.out.println("In Server Dice Roll: " + e);
+        }
+    }
+
+    private void getAndSendNewLandInfo() {
+        String sender = readString();
+        int senderNum = Integer.parseInt(sender);
+        String landName = readString();
+        Double price = 0.0;
+        try {
+            Object o = info.ois.readObject();
+            if(o instanceof Double)
+                price = (Double) o;
+            for(int i=0; i<4; i++) {
+                if(i != senderNum) {
+                    Info tempInfo = onlineUsers.get(Server.partyMembers.get(i));
+                    tempInfo.oos.writeObject("9");
+                    tempInfo.oos.writeObject(sender);
+                    tempInfo.oos.writeObject(landName);
+                    tempInfo.oos.writeObject(price);
+                }
+            }
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("In get and send new land info: " + e);
         }
     }
 }

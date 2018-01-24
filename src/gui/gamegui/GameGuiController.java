@@ -1,6 +1,8 @@
 package gui.gamegui;
 
 import client.Main;
+import database.Property;
+import gui.buyland.BuyLand;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -59,9 +61,32 @@ public class GameGuiController {
             diceOne.setImage(showDice(num1));
             diceTwo.setImage(showDice(num2));
 
-            Main.client.diceRoll(num1 + num2);
+            int x = num1+num2;
 
-            updatePos(num1 + num2);
+            Main.client.gameData[Main.client.myNum].curPos = (Main.client.gameData[Main.client.myNum].curPos + x) % 40;
+            if(Main.client.gameData[Main.client.myNum].curPos == 30)
+                Main.client.gameData[Main.client.myNum].curPos = 10;
+
+            updatePos(x);
+            Main.client.diceRoll(x);
+
+            int curPos = Main.client.gameData[Main.client.myNum].curPos;
+
+            Property property = Main.client.property[curPos];
+            System.out.println(property.owner);
+
+            if(property.owner == 0) {
+                new BuyLand(property.name, property.price);
+            } else if(property.owner == -1) {
+                if(curPos == 0)
+                    Main.client.gameData[Main.client.myNum].currentGold += property.price;
+                else if(curPos == 30) {
+                    Main.client.gameData[Main.client.myNum].currentGold -= property.price;
+                }
+
+            } else if(property.owner == -2) {
+                Main.client.gameData[Main.client.myNum].currentGold -= property.price;
+            }
         }
     }
 
@@ -97,7 +122,7 @@ public class GameGuiController {
     }
 
     public void updatePos(int x) {
-        Main.client.gameData[Main.client.whosMove].curPos = (Main.client.gameData[Main.client.whosMove].curPos + x) % 40;
+
         switch (Main.client.whosMove) {
             case 0: {
                 Platform.runLater(() -> {

@@ -7,6 +7,7 @@ import javafx.application.Platform;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.zip.InflaterOutputStream;
 
 public class ClientRead implements Runnable {
     private Client client;
@@ -54,7 +55,9 @@ public class ClientRead implements Runnable {
                     case 8:
                         getDiceRoll();
                         break;
-
+                    case 9:
+                        getNewLandInfo();
+                        break;
                 }
             }
         } catch (Exception e) {
@@ -169,6 +172,28 @@ public class ClientRead implements Runnable {
         //System.out.println("got dice roll");
         String s = readString();
         int x = Integer.parseInt(s);
+        Main.client.gameData[Main.client.whosMove].curPos = (Main.client.gameData[Main.client.whosMove].curPos + x) % 40;
+        if(Main.client.gameData[Main.client.whosMove].curPos == 30)
+            Main.client.gameData[Main.client.whosMove].curPos = 10;
         Main.gameGuiController.updatePos(x);
+    }
+
+    private void getNewLandInfo() {
+        String sender = readString();
+        int senderNum = Integer.parseInt(sender);
+        String landName = readString();
+        Double price = 0.0;
+        try {
+            Object o = Main.client.ois.readObject();
+            if(o instanceof Double)
+                price = (Double) o;
+        } catch (IOException | ClassNotFoundException e) {
+            System.out.println("In get new land info:" + e);
+        }
+        Main.client.gameData[senderNum].ownedProperty.add(landName);
+        Main.client.gameData[senderNum].currentGold -= price;
+        Main.client.property[Main.client.gameData[senderNum].curPos].owner = senderNum+1;
+        System.out.println(senderNum + " bought " + landName);
+        //System.out.println(Main.client.gameData[senderNum].curPos);
     }
 }

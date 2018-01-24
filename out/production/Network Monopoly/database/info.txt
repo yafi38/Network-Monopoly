@@ -1,7 +1,7 @@
 go-745,745
 
 property[1]=660,760
-erpor 9 porjnto 660-i*60;
+erpor 9 porjnto 660-i*65;
 
 
 in jail(visiting)-55,760
