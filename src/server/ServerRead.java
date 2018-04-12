@@ -145,7 +145,7 @@ public class ServerRead implements Runnable {
 
             for (String s : Server.partyMembers) {
                 if (!s.equals(userName)) {
-                    System.out.println("Sending dice roll to " + s);
+                    //System.out.println("Sending dice roll to " + s);
                     Info tempInfo = onlineUsers.get(s);
                     tempInfo.oos.writeObject("8");
                     tempInfo.oos.writeObject(str);

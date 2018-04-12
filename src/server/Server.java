@@ -1,5 +1,6 @@
 package server;
 
+import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 import java.util.ArrayList;
@@ -12,6 +13,7 @@ public class Server {
     static ArrayList<String> partyMembers;
 
     private Server() {
+        //System.out.println("Server Started");
         onlineUsers = new HashMap<>();
         partyMembers = new ArrayList<>();
         try {
@@ -20,7 +22,7 @@ public class Server {
                 Socket clientSocket = serverSocket.accept();
                 addNewClient(clientSocket);
             }
-        } catch (Exception e) {
+        } catch (IOException e) {
             System.out.println("In Server Constructor:" + e);
         }
     }

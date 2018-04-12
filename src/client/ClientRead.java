@@ -193,7 +193,7 @@ public class ClientRead implements Runnable {
         Main.client.gameData[senderNum].ownedProperty.add(landName);
         Main.client.gameData[senderNum].currentGold -= price;
         Main.client.property[Main.client.gameData[senderNum].curPos].owner = senderNum+1;
-        System.out.println(senderNum + " bought " + landName);
+        //System.out.println(senderNum + " bought " + landName);
         //System.out.println(Main.client.gameData[senderNum].curPos);
     }
 }
